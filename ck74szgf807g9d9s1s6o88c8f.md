@@ -54,8 +54,9 @@ Additionally, some command lines will contain placeholders with example content 
 ¹ [Integrate with External Tools via Tasks](https://go.microsoft.com/fwlink/?LinkId=733558); comment from default *tasks.json*.  
 ² See [# Processing task output with problem matchers](https://code.visualstudio.com/docs/editor/tasks#_processing-task-output-with-problem-matchers).
 
-This creates the following entry in the Tasks: Run Build Task command menu, by default bound to Ctrl + Shift + B: 
-![Code_JVjZIdealV.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1582800675358/UHG9unECP8.png) ...which runs the following shell commands in dependent sequence:
+This creates the following entry in the Tasks: Run Build Task command menu, by default bound to Ctrl + Shift + B:  
+![Code_JVjZIdealV.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1582800675358/UHG9unECP8.png)  
+...which runs the following shell commands in dependent sequence:
 ```sh
 docker build -t {EX:schichler-dev} -f {EX:schichler-dev/Dockerfile} {EX:.}
 docker run [OPT:--read-only] --mount type=bind,source=${workspaceFolder}{EX:/target},destination=/mnt/target --rm {EX:schichler-dev}
