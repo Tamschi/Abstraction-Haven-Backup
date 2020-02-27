@@ -93,3 +93,9 @@ This *in my case*:
 
 2. [Copies (`cp`)](http://www.man7.org/linux/man-pages/man1/cp.1.html), recursively (`-r`), the contents of (`--no-target-directory`) my build directory inside the container (`bundle`) into the mounted host directory visible at `/mnt/target` inside the container.
 💁‍♂️ *Instead of writing `--no-target-directory`, you could append *`/*`* to the source directory to use shell expansion. I don't know whether this makes a practical difference.*
+
+### Running the Task
+
+You can now run the build task by pressing `Ctrl + Shift + B` and then `Enter`.
+
+Code should show the output of the command in a new task terminal window.
