@@ -15,7 +15,7 @@ Reactivating the Borrow Checker
 
 🎨 *The image displayed on my watch is unsafe!Ferris by @&zwj;whoisaldeka on Twitter, first posted [here](https://twitter.com/whoisaldeka/status/674465785557860353) under CC-BY... though *technically* speaking I downscaled the SVG version that's in the Rustonomicon.*
 
-I recently succeeded at writing a watch app for my old Kickstarter Pebble and made some discoveries in the process that may be interesting to others working on similar projects or FFI bindings in general. This post is part one of a two-part series, with the other covering some tricks you can use when wrapping an OOP C API.
+I recently succeeded at writing a watch app for my old Kickstarter Pebble and made some discoveries in the process that may be interesting to others working on similar projects or FFI bindings in general. This post is part one of a two-part series, with the other (planned to be) covering some tricks you can use when wrapping an OOP C API.
 
 <!-- TODO: Change this back to "`nightly-2020-10-31` (🎃&zwj;boo!)" once available. -->
 💁‍♂️ *Some of the advice in this post hinges on the e.g. `nightly-2020-10-30` `#![feature(extern_types)]`. To my knowledge, there is currently no fully sound way to use fully opaque references on stable!  
