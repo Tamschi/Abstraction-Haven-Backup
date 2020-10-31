@@ -1,4 +1,4 @@
-## Semantic FFI Bindings in Rust -
+## Semantic FFI Bindings in Rust -  
 Reactivating the Borrow Checker
 
 > In this post:
