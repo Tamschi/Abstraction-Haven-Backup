@@ -359,9 +359,9 @@ pub type NumberWindowCallback =
 
 ### What's next
 
-I hope this post has been helpful so far. [`pebble-sys`](TK Link) is still a work in progress, but I believe it's on a good trajectory and this is just about everything I learned while working on it so far. It's actually my first FFI binding (not counting C#), but it's fun to go a bit beyond transliterating the C declarations 😅
+I hope this post has been helpful so far. [`pebble-sys`](https://github.com/Tamschi/pebble-sys#pebble-sys) is still a work in progress, but I believe it's on a good trajectory and this is just about everything I learned while working on it so far. It's actually my first FFI binding (not counting C#), but it's fun to go a bit beyond transliterating the C declarations 😅
 
-For the next post, I want to cover the constructs I used to reconcile Pebble's polymorphic OOP API, memory safety, and 24kB of app working memory in [`pebble-skip`](TK Link). You'll also see a custom *fallible* [`Box`](https://doc.rust-lang.org/stable/std/) with direct unsizing coercions.
+For the next post, I want to cover the constructs I used to reconcile Pebble's polymorphic OOP API, memory safety, and 24kB of app working memory in [`pebble-skip`](https://github.com/Tamschi/pebble-skip#pebble-skip). You'll also see a custom *fallible* [`Box`](https://doc.rust-lang.org/stable/std/) with direct unsizing coercions.
 
 - - -
 
