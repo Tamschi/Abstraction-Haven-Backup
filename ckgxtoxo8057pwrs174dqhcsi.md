@@ -345,7 +345,7 @@ extern "C" fn example_handler<'a>(
 }
 ```
 
-The function has a generic parameter, so to declare the matching pointer type we can either use a concrete lifetime and thread that through the container hierarchy a bit or, more conveniently and accurately, we can use a "[higher-ranked](https://doc.rust-lang.org/stable/reference/trait-bounds.html#higher-ranked-trait-bounds) [type alias](https://doc.rust-lang.org/stable/reference/items/type-aliases.html)" (two links):
+The function has a generic parameter, so to declare the matching pointer type we can either use a concrete lifetime and thread that through the container hierarchy a bit or, more conveniently and accurately, we can use a [type alias](https://doc.rust-lang.org/stable/reference/items/type-aliases.html) to a polymorphic function pointer type:
 
 ```rust
 pub type NumberWindowCallback =
@@ -355,7 +355,9 @@ pub type NumberWindowCallback =
   );
 ```
 
-💁‍♂️ *I just came up with the name, since I could not find documentation spelling out that this is possible. The one specific mention I found after digging for a bit is the `ForLifetimes?` in the formal grammar on [function pointer types](https://doc.rust-lang.org/stable/reference/types/function-pointer.html), which just links to the section on where clauses.*
+💁‍♂️ *Rust's documentation doesn't quite spell out that this is possible for plain function pointers in addition [to traits](https://doc.rust-lang.org/stable/reference/trait-bounds.html#higher-ranked-trait-bounds), or what to call it. The one specific mention I found after digging for a bit is the `ForLifetimes?` in the formal grammar on [function pointer types](https://doc.rust-lang.org/stable/reference/types/function-pointer.html), which just links to the section on where clauses.*
+
+(Thanks for the correction, @[Mazdak Farrokhzad](@centril)!)
 
 ### What's next
 
