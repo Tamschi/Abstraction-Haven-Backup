@@ -72,7 +72,7 @@ For example, look at the signature of [`Box::pin`](https://doc.rust-lang.org/sta
 pub fn pin(x: T) -> Pin<Box<T>> { … }
 ```
 
-This function pins the value `x` of type `T` behind a pinning smart point of type `Pin<Box<_>>`.
+This function pins the value `x` of type `T` behind a pinning smart pointer of type `Pin<Box<_>>`.
 
 Think of `Pin<Box<_>>` as "pinning `Box`", and not as "`Box` inside a `Pin`". `Pin` is not a container that the `Box` can be *safely* taken out of ([unless `T: Unpin`](https://doc.rust-lang.org/stable/core/pin/struct.Pin.html#method.into_inner)).
 
