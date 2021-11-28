@@ -171,7 +171,10 @@ However, as the type of the pinned instance itself does not change, it can remai
 
 *`Pin<_>` hides the normal mutable API only through encapsulation, but can't erase it entirely.*
 
-This means that safe code in that module can often move an instance even after it appears pinned to code outside of it, and extra care must be taken to avoid such moves.
+This is especially true for pins with [interior mutability](https://doc.rust-lang.org/core/cell/index.html) or composed of non-pinning fields, since they will normally share much of their implementation between the non-pinning and pinning API.
+
+Safe code inside such modules will (currently) often handle `&mut T` while a derived `Pin<&T>` could have been presented outwards before, and extra care must be taken to avoid unsound moves in that case.  
+This may change in the future as more pinning pointers and collections become available and if Rust makes it easier to add methods to custom types wrapped in `Pin<_>`.
 
 # Collections can pin
 
