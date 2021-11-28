@@ -55,9 +55,12 @@ Whenever a type implements [`Unpin`](https://doc.rust-lang.org/stable/core/marke
 
 Whenever pinning happens in Rust, there are two components involved:
 
-- A "pin" type that enforces "the value can't be moved" towards *safe* Rust.
+- A "pin" type that asserts "the value can't be moved (by *safe* Rust)".
 
-  This is often called a "pinning pointer". Pins are very often `Unpin`, but this isn't relevant to their function.
+  This is often called a "pinning pointer".
+
+  Pins are very often `Unpin`, but this isn't relevant to their function.  
+  Instead, this rule is enforced only through API constraints of the pin.
 
 - A *pinned value*, which can't be moved by the consumer of an API.
 
@@ -191,7 +194,7 @@ How plain (non-pinning) pointers and collections behave should be clear enough, 
 |  | `Pin<P>` | `Pin<C>` | `T` behind `Pin<&T>` or `Pin<&mut T>` |
 |---|---|---|---|
 | English | "pinning pointer" | "pinning collection" | "pinned value" |
-| `: Unpin` | nearly always | very often | rarely. If yes, then pinning isn't meaningful. |
+| `: Unpin` | nearly always | very often | rarely in practice, as pinning with `T: Unpin` is meaningless. |
 | APIs accessible<br>vs. without pinning | Access to `Pin<&T>`<br>and optionally `Pin<&mut T>` | varies,<br>but often similar to `Pin<P>` | Functions that require `Pin<&T>` or `Pin<&mut T>` |
 | APIs inaccessible<br>after pinning | Access to `&mut T`,<br>unwrapping `T` | varies, but usually:<br>Access to `&mut T`, removing `T`,<br>anything that would reallocate `T` | Functions that require `&mut T` |
 | Unchanged APIs<br>(examples) | Access to `&T` | Access to `&T`,<br>dropping `T` in place | Functions that require `&T` |
