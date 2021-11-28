@@ -28,16 +28,23 @@ These are "further reading", so I recommend reading this post entirely before lo
 
 # The Problem
 
-In Rust, any instance is considered trivially movable as long as its size is known at compile-time.
+**In Rust, any instance is considered trivially movable** as long as its size is known at compile-time, which means that anyone who owns or has an `&mut` (a plain exclusive reference) to an instance can copy its unstructured data (i.e. its directly contained bytes) to a different memory address, and can then expect nothing to break when they reuse the old location otherwise or use the moved instance.
+
+Unlike in C# or JavaScript, this matters:  
+References, pointers and addresses can be fairly readily converted between each other, and **addresses (and to some extent pointers) are plain numbers that can be used in offset calculations**.
+This makes it possible to, for example, create very efficient generic collections, as they can always store instances "by-value" in the same allocation. If they've run out of space to add a new item, they implicitly reallocate their storage, possibly moving their contents to a new location in memory.
 
 However, unlike in C++
-([1](https://en.cppreference.com/w/cpp/language/copy_constructor#Deleted_implicitly-declared_copy_constructor),
-[2](https://en.cppreference.com/w/cpp/language/move_constructor#Deleted_implicitly-declared_move_constructor),
-[3](https://en.cppreference.com/w/cpp/language/copy_assignment#Deleted_implicitly-declared_copy_assignment_operator),
-[4](https://en.cppreference.com/w/cpp/language/move_assignment#Deleted_implicitly-declared_move_assignment_operator)),
-there is also no way to prevent (or observe) plain assignments for a particular type: You can't overload the plain assignment operator `=`, and there is no concept of a [move constructor](https://en.cppreference.com/w/cpp/language/move_constructor) that could be called when an instance is moved implicitly.
+([1](https://en.cppreference.com/w/cpp/language/copy_constructor),
+[2](https://en.cppreference.com/w/cpp/language/move_constructor),
+[3](https://en.cppreference.com/w/cpp/language/copy_assignment),
+[4](https://en.cppreference.com/w/cpp/language/move_assignment)), **there is no built-in mechanism to update pointers and addresses not known directly** to the owner of an instance, **or to prevent moves completely for a specific type**: You can't overload or delete the plain assignment operator `=`, and there is no concept of a [move](https://en.cppreference.com/w/cpp/language/move_constructor) or [copy constructor](https://en.cppreference.com/w/cpp/language/copy_constructor) that could be called when an instance is moved implicitly.
 
-This makes it tricky to write a memory-safe API that relies on the location of an instance without taking continuous possession of it.
+Rust-style references (`&` or `&mut`) are lightweight pointers with some aliasing restrictions that are always valid¹ and can't be automatically updated from elsewhere, which in turn **rules out reallocation of their target *entirely* during these borrows** (but code with access to the exclusive `&mut T` can still [`swap`](https://doc.rust-lang.org/stable/core/mem/fn.swap.html) instances freely).
+
+(¹ more specifically: References are always guaranteed to be dereferenceable, which allows the compiler to load and cache their pointed-to values early in many cases. C++ makes the same dereferenceability guarantee, but allows mutable aliasing by default.)
+
+All this together makes it tricky to write a memory-safe API that relies on the known location of an instance between calls into it, as **taking continuous possession of it through ownership or a borrow would be inflexible** and often inconvenient, and **using an indirect handle would be too inefficient** for many low-level components.
 
 # Pinning TL;DR (simplified)
 
