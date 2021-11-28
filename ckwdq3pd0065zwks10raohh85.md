@@ -103,9 +103,9 @@ I often shorten "pinning `Box`" to "`Pin`-`Box`" for myself when reading silentl
 
 # `Unpin` is an auto trait
 
-Very few types in Rust are actually `!Unpin`. As [`Unpin`](https://doc.rust-lang.org/stable/core/marker/trait.Unpin.html) is an [`auto trait`](https://doc.rust-lang.org/beta/unstable-book/language-features/auto-traits.html), it is implemented for all composed types (structs, enums and unions) whose members are `Unpin` already. It's auto-implemented for almost all primitive types and **implemented explicitly also for [pointers](https://doc.rust-lang.org/stable/std/primitive.pointer.html)**! This means that pointer wrappers like [`NonNull`](https://doc.rust-lang.org/stable/core/ptr/struct.NonNull.html) are *also* `Unpin`!
+Very few types in Rust are actually `!Unpin`. As [`Unpin`](https://doc.rust-lang.org/stable/core/marker/trait.Unpin.html) is an [`auto trait`](https://doc.rust-lang.org/beta/unstable-book/language-features/auto-traits.html), it is implemented for all composed types (structs, enums and unions) whose members are `Unpin` already. It's auto-implemented for nearly all built-in types and **implemented explicitly also for [pointers](https://doc.rust-lang.org/stable/std/primitive.pointer.html)**! This means that pointer wrappers like [`NonNull`](https://doc.rust-lang.org/stable/core/ptr/struct.NonNull.html) are *also* `Unpin`!
 
-In fact, the only primitive type that is explicitly `!Unpin` is [`core::marker::PhantomPinned`](https://doc.rust-lang.org/stable/core/marker/struct.PhantomPinned.html), a marker you can use as member type to make your custom type `!Unpin` in stable Rust.
+In fact, the only type that is explicitly `!Unpin` as of stable Rust 1.56, including in custom crates, is [`core::marker::PhantomPinned`](https://doc.rust-lang.org/stable/core/marker/struct.PhantomPinned.html), a marker you can use as member type to make your custom type `!Unpin`.
 
 You can see the full list of (non-)implementors here: [`Unpin`#implementors](https://doc.rust-lang.org/stable/core/marker/trait.Unpin.html#implementors)
 
@@ -158,7 +158,7 @@ Converting a pointer or container into its pinning version is an equally free ac
 
 This is possible because moves in Rust are already pretty explicit once references are involved: The underlying assignment maybe be hidden inside another method, but there is no system that will move heap instances around without being told to do so (unlike for example in C#, where pinning is a runtime operation [integrated into the GC API](https://docs.microsoft.com/en-us/dotnet/api/system.runtime.interopservices.gchandletype?view=net-6.0).)
 
-The only exception to this are types that are [`Copy`](https://doc.rust-lang.org/stable/core/marker/trait.Copy.html), a trait which must be derived explicitly for each type for which implicit trivial copies should be available.
+The only exception to this, where a `&`-referenced instance's copy can appear with a new address implicitly, are types that are [`Copy`](https://doc.rust-lang.org/stable/core/marker/trait.Copy.html). This trait isn't [`auto`](https://doc.rust-lang.org/unstable-book/language-features/auto-traits.html), which means it must be derived explicitly for each type for which implicit trivial copies should be available.
 
 (Side-note: Don't implement `Copy` on types where identity matters at all. Deriving [`Clone`](https://doc.rust-lang.org/stable/core/clone/trait.Clone.html) is usually enough.  
 `Copy` is largely convenience for immutable instances that you want to pass by value a lot, so for example [`Cell`](https://doc.rust-lang.org/stable/core/cell/struct.Cell.html) does not implement it even if the underlying type does.)
