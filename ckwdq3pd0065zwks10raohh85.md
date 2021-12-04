@@ -131,7 +131,7 @@ The only differences between `Box<T>` and `Pin<Box<T>>` are that:
 
   Getting access to these pinning references lets you call methods on the value that require `self: Pin<&Self>` or `self: Pin<&mut Self>`, and also associated functions with similar argument types.
 
-The plain `&T` value reference is accessible like before, and can also be found as such by dereferencing `Pin<&T>`, regardless of wither `T` is `Unpin`.
+The plain `&T` value reference is accessible like before, and can also be found as such by dereferencing `Pin<&T>`, regardless of wether `T` is `Unpin`.
 
 **All** smart pointers and references that are [`Deref<Target = T>`](https://doc.rust-lang.org/stable/core/ops/trait.Deref.html) (and optionally, for mutable access, [`DerefMut`](https://doc.rust-lang.org/stable/core/ops/trait.DerefMut.html)) function *exactly* like this when pinning.
 
