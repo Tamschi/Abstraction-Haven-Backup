@@ -15,9 +15,11 @@ This post is my attempt to make the feature more approachable, to hopefully insp
 
 - - -
 
-**License and Translations**
+#### License and Translations
 
 See past the end of this post. In short, this post as a whole is licensed under [CC BY-NC-SA 2.0](https://creativecommons.org/licenses/by-nc-sa/2.0/) except for code citations explicitly marked as such. Code snippets and blocks that are *not* marked as citations are also licensed under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/).
+
+Community translations: [Chinese](https://zjp-cn.github.io/translation/Pinning-in-plain-English.html)
 
 - - -
 
@@ -312,12 +314,12 @@ The `CopyNew` trait can be implemented more broadly than the standard [`Clone`](
 
 To @[Robin Pederson](@TheBerkin) and @[telios](@telios) for proof-reading and various suggestions on how to improve clarity, and to [Milou](https://github.com/jimkoen) for criticism and suggestions from a C++ perspective.
 
-# License and Translations
+# License and Translations (in detail)
 
 This post as a whole with exception of citations is licensed under [CC BY-NC-SA 2.0](https://creativecommons.org/licenses/by-nc-sa/2.0/). All code samples (that is: code blocks and snippets formatted `like this`), except for citations, are additionally licensed under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/), so that you can freely use them in your projects under any license or no license.
 
 Citations from official Rust projects retain their original `MIT OR Apache-2.0` license and are used as permitted at <https://www.rust-lang.org/policies/licenses>. Sorry about the complexity here, unfortunately my country barely recognises fair use.
 
-If you translate this post, please let me know so that I can link it here. I should be able to post a German translation myself before long.
+If you translate this post, please let me know so that I can link it [above](#heading-license-and-translations). I should be able to post a German translation myself before long.
 
 (I suggest using the same license structure for code snippets in translations as here, though this is not something I can enforce. If a translation uses a different license, you can likely still take the code you need from the original here under CC0.)
